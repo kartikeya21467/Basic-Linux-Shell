@@ -1,0 +1,278 @@
+
+exit: 
+
+	- exits the shell (program)
+
+
+
+Internal Commands:
+
+
+echo:
+
+options:
+
+	1. echo
+		- displays line passed as argument
+	2. echo -n
+		- displays line passed as argument without the trailing newline
+	3. echo -E
+		- displays line passed as argument disabling the interpretation of backslash escapes
+
+Errors:
+
+	1. if options other than ones defined above are given the line including the option is displayed.
+	2. if only echo is passed then a blank line is displayed.
+	
+test cases:
+	
+	echo             (displays blank line)
+	echo -n          (displays blank ignoring newline)
+	echo -E          (displays blank line)
+	echo -n hello    ( displays hello wihtout newline )
+	echo -E hello    (displays hello occupying whole line)
+	echo hello       (displays hello occupying whole line)
+	echo -p hello    (displays -p hello )
+
+
+
+pwd:
+
+options:
+
+	1. pwd
+		-prints the working directory
+	2. pwd -L
+		- prints the working directory 
+Errors:
+	
+	1. options other than pwd and pwd -L gives an error	
+	2. if any other argument is given along with pwd then it gives an error
+
+test cases:
+	
+	pwd          (gives working directory)
+	pwd -L       (gives working directory)
+	pwd hello	 ( error )
+	pwd -m	 ( error )
+
+
+
+
+cd:
+
+options:
+		
+	1. cd
+		- goes to home directory if no argument is passed
+		- goes to the directory passed as an argument
+	2. cd ~
+		- goes to home directory
+	3. cd / 
+		- goes to root
+	4. cd ..
+		- goes back
+
+Errors:
+
+	1. gives an error if directory passed as an argument is not present.
+	2. gives an error if a directory name is passed along with the options above.
+	3. gives an error if more arguments are passed along with directory name.
+
+test cases:
+
+	cd                  (change to home directory)
+	cd ~                (change to home directory)
+	cd /                (change to root)
+	cd ..               (goes out of directory)
+	cd hello            (hello is directory) ->  (goes to hello directory)
+	cd hello            (hello directory not present) -> ( error )
+	cd ~ hello          ( error )
+	cd hello/hello1 	  (hello1 is present inside hello) -> goes directly to hello1
+	cd hello/hello1     (either of them is not present) ->  ( error )
+	cd hello hi         ( error )
+
+
+
+External Commands:
+
+
+
+ls:
+
+options:
+
+	1. ls
+		- list contents of directory
+	2. ls -a
+		- do not ignore entries starting with .
+	3. ls -A
+		- do not list implied . and ..
+	4. ls -1
+		- list one file per line
+
+Errors:
+	
+	1. gives an error if directory passed as argument along with above options is not present.
+	2. gives an error if any other options other than the ones above are given
+	3. if multiple directories are passed then the first one is considered.
+
+test cases:
+
+	ls                        (list the contents of current directory)
+	ls -a                     (list the contents of current directory with . and .. )
+	ls -A                     (list the contents of current directory ignoring . and ..)
+	ls -1                     (list each content of current directory in new line)
+	ls <directoryname>	  (													)
+	ls -a <directoryname>	  (	 does the same as above but with the directory whose name is passed	)
+	ls -A <directoryname>	  (         ( error ) -> if the directory is not present				)
+	ls -1 <directoryname> 	  (													)
+	ls -m                     ( error )
+	ls directoryname1 directoryname2     ( list the contents of directory1 )  (works with other options too)
+	ls dir1/dir2              (list the contents of dir2)  (works with other options too)
+	
+
+
+
+
+mkdir:
+
+options:
+
+	1. mkdir
+		- make directory with the name passed as argument
+	2. mkdir -v
+		- prints a message fr each created directory
+	3. mkdir -p
+		- make parent directories if needed
+
+Errors:
+
+	1. gives error if directory with provided name already exists.
+	2. gives error if options other than the ones provided above are used.
+	3. gives error if space separated directory name is given.
+	4. gives error if options other than -p are used to create multiple directories.
+	5. gives error if no argument is passed
+	
+test cases:
+
+	mkdir <dirname>               (directory with name does not exist) -> (creates directory)
+					      (directory with name exists) -> ( error )
+	mkdir -v dirname              (directory with name does not exist) -> (created directory and prints message)
+					      (directory with name exists) -> ( error )
+	mkdir -p dirname              (directory with name does not exist) -> (creates directory)
+					      (directory with name exists) -> ( error )
+	mkdir -p dirname1/dirname2    (directory1 does not exists) -> (creates directory1 and directory2 inside it)
+						(directory1 exists) -> ( error )
+	mkdir -v dirname1/dirname2    ( error )
+	mkdir dirname1/dirname2       ( error ) 
+	mkdir -m				( error )
+	mkdir dirname1 dirname2       ( error )
+	mkdir    				( error )
+	mkdir -v				( error )
+	mkdir -p                      ( error )
+
+
+
+
+
+date:
+
+options:
+	
+	1. date
+		- print system date and time
+	2. date -u
+		- print univeral time
+	3. date -R
+		- print date and time in RFC 5322 format
+
+Errors:
+	 
+	1. gives error if any other argument is passed.
+	2. gives error if options other than the ones provided above are used.
+	
+test cases:
+
+	date				(prints system date and time)
+	date -u                 (prints universal time)
+	date -R         		(prints date and time in RFC 5322 format)
+	date -m			( error )
+	date hello			( error )
+	date -u hello 		( error )
+	date -R hello		( error )
+
+
+
+
+
+cat:
+
+options:
+	
+	1. cat
+		- print the content of the file
+	2. cat -n
+		- number all output lines
+	3. cat -E 
+		- displays $ at end of each line
+
+Errors:
+
+	1. gives error if options other than the ones provided above are used.
+	2. gives error if file given in argument does not exist.
+	3. gives error if name given is of directory.
+
+test cases:
+
+	cat <name>				(file exists) -> (print the content of file)
+						(file does not exist or it is directory) -> ( error )
+	cat -n <name>         		(file exists) -> (print the content of file and numbers every line)
+						(file does not exist or it is directory) -> ( error )
+	cat -E <name>			(file exists) -> (print the content of file and put $ at end of each line)
+						(file does not exist or it is directory) -> ( error )
+	cat -m <name>			( error )
+	cat -m                        ( error )
+
+
+
+
+rm:
+
+options:
+	
+	1. rm
+		- remove files
+	2. rm -v
+		- remove files and print message
+	3. rm -d
+		- removes empty directory
+
+Errors:
+
+	1. gives error if options other than the ones provided above are used.
+	2. gives error if name given in argument does not exist.
+	3. gives error if directory name is given with rm or rm -v as they only remove file.
+	4. gives error if file name is given with rm -d as it only remove directory.
+	5. gives error if directory name given with -d is not empty.
+	6. gives error is no argument is given with above options.
+
+test cases:
+
+	rm <filename>			(file exists) -> (removes file)
+						(file does not exist) -> ( error )
+	rm <dirname>			( error )
+	rm -v <filename>			(file exists) -> (removes file and prints message)
+						(file does not exist) -> ( error )
+	rm -v <dirname>			( error )
+	rm -d <filename>			( error ) -> (filename is given and not directory)
+	rm -d <dirname>			(directory exists) -> (removes directory)
+						(directory does not exist) -> ( error )
+	rm -m <name>                  ( error )
+	rm                            ( error )
+	rm -v					( error )
+	rm -d					( error )
+
+
+
+
