@@ -30,7 +30,7 @@ int main(int argc, char **args){
         count++;
         
         char **tokens = malloc(100 * sizeof(char *));
-        
+    
         int pos=0;
         const char s[2]=" ";
         char *token = strtok(args[2],TOK_DELIM);
